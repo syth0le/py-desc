@@ -7,6 +7,6 @@ setup(
     url='https://github.com/syth0le/py_desc',
     license='Apache 2.0',
     author='Cherednichenko Daniil',
-    author_email='chdan565@gmail.com',
+    author_email='syth0le565@gmail.com',
     description='A simple fields descriptors tool'
 )

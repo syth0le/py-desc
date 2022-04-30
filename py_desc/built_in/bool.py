@@ -1,7 +1,7 @@
 from py_desc.base import Base
 
 
-class NotFalseBoolean(Base):
+class TrueBoolean(Base):
 
     def __get__(self, instance, owner):
         return getattr(instance, self.name)
@@ -14,10 +14,10 @@ class NotFalseBoolean(Base):
         setattr(instance, self.name, value)
 
     def __set_name__(self, owner, name):
-        self.name = name
+        self.name = f'_{name.lower()}'
 
 
-class NotTrueBoolean(Base):
+class FalseBoolean(Base):
 
     def __get__(self, instance, owner):
         return getattr(instance, self.name)
@@ -30,4 +30,4 @@ class NotTrueBoolean(Base):
         setattr(instance, self.name, value)
 
     def __set_name__(self, owner, name):
-        self.name = name
+        self.name = f'_{name.lower()}'

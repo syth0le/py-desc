@@ -3,27 +3,27 @@ import pytest
 from py_desc.built_in.set import SimpleSet, SetOfFloats, SetOfIntegers, SetOfNumbers, SetOfStrings, CustomSet
 
 
-class TestingSimpleSet:
+class SimpleSetTesting:
     var = SimpleSet()
 
 
-class TestingSetOfIntegers:
+class SetOfIntegersTesting:
     var = SetOfIntegers()
 
 
-class TestingSetOfFloats:
+class SetOfFloatsTesting:
     var = SetOfFloats()
 
 
-class TestingSetOfNumbers:
+class SetOfNumbersTesting:
     var = SetOfNumbers()
 
 
-class TestingSetOfStrings:
+class SetOfStringsTesting:
     var = SetOfStrings()
 
 
-class TestingCustomSet:
+class CustomSetTesting:
     var_bool = CustomSet(bool)
     var_str = CustomSet(str)
     var_float = CustomSet(float)
@@ -38,7 +38,7 @@ class TestingCustomSet:
 
 @pytest.mark.parametrize('value', [{'fff'}, {'4', 5}, {True, False}])
 def test_simple_set(value):
-    cls = TestingSimpleSet()
+    cls = SimpleSetTesting()
     cls.var = value
 
     assert cls.var == value
@@ -46,14 +46,14 @@ def test_simple_set(value):
 
 @pytest.mark.parametrize('value', [True, 5, 7.6, (), ])
 def test_simple_set_error(value):
-    cls = TestingSimpleSet()
+    cls = SimpleSetTesting()
     with pytest.raises(ValueError):
         cls.var = value
 
 
 def test_integer_set():
     temp_set = {5, 6, 7}
-    cls = TestingSetOfIntegers()
+    cls = SetOfIntegersTesting()
     cls.var = temp_set
 
     assert cls.var == temp_set
@@ -61,14 +61,14 @@ def test_integer_set():
 
 @pytest.mark.parametrize('value', [{'fff'}, {'4', 5}, {5.6}])
 def test_integer_set_error(value):
-    cls = TestingSetOfIntegers()
+    cls = SetOfIntegersTesting()
     with pytest.raises(ValueError):
         cls.var = value
 
 
 def test_float_set():
     temp_set = {5.1, 6.3, 7.0}
-    cls = TestingSetOfFloats()
+    cls = SetOfFloatsTesting()
     cls.var = temp_set
 
     assert cls.var == temp_set
@@ -76,14 +76,14 @@ def test_float_set():
 
 @pytest.mark.parametrize('value', [['fff'], ['4', 5], [[[]]], [5, 6, 7], [True, False]])
 def test_float_set_error(value):
-    cls = TestingSetOfFloats()
+    cls = SetOfFloatsTesting()
     with pytest.raises(ValueError):
         cls.var = value
 
 
 def test_strings_set():
     temp_set = {'one', 'two', 'three'}
-    cls = TestingSetOfStrings()
+    cls = SetOfStringsTesting()
     cls.var = temp_set
 
     assert cls.var == temp_set
@@ -91,14 +91,14 @@ def test_strings_set():
 
 @pytest.mark.parametrize('value', [[5.4, 5.6], ['4', 5], [[[]]], [5, 6, 7], [True, False]])
 def test_strings_set_error(value):
-    cls = TestingSetOfStrings()
+    cls = SetOfStringsTesting()
     with pytest.raises(ValueError):
         cls.var = value
 
 
 def test_numbers_set():
     temp_set = {5, 6.3, 7.6, 0}
-    cls = TestingSetOfNumbers()
+    cls = SetOfNumbersTesting()
     cls.var = temp_set
 
     assert cls.var == temp_set
@@ -106,13 +106,13 @@ def test_numbers_set():
 
 @pytest.mark.parametrize('value', [[5.4, '3', 5.6], [[[]]], (5, 6)])
 def test_numbers_set_error(value):
-    cls = TestingSetOfNumbers()
+    cls = SetOfNumbersTesting()
     with pytest.raises(ValueError):
         cls.var = value
 
 
 def test_custom_set():
-    cls = TestingCustomSet(
+    cls = CustomSetTesting(
         bl={True}, st={''}, fl={3.4}, it={5}
     )
 
@@ -124,9 +124,9 @@ def test_custom_set():
 
 @pytest.mark.parametrize('type,value', [(int, {5.6}), (float, {6}), (bool, {'True'}), (str, {5})])
 def test_custom_set_error(type, value):
-    class TestingCustomSetLocal:
+    class CustomSetLocalTesting:
         var = CustomSet(type)
 
-    cls = TestingCustomSetLocal()
+    cls = CustomSetLocalTesting()
     with pytest.raises(ValueError):
         cls.var = value

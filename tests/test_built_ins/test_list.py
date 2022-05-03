@@ -3,27 +3,27 @@ import pytest
 from py_desc.built_in.list import SimpleList, ListOfFloats, ListOfIntegers, ListOfNumbers, ListOfStrings, CustomList
 
 
-class TestingSimpleList:
+class SimpleListTesting:
     var = SimpleList()
 
 
-class TestingListOfIntegers:
+class ListOfIntegersTesting:
     var = ListOfIntegers()
 
 
-class TestingListOfFloats:
+class ListOfFloatsTesting:
     var = ListOfFloats()
 
 
-class TestingListOfNumbers:
+class ListOfNumbersTesting:
     var = ListOfNumbers()
 
 
-class TestingListOfStrings:
+class ListOfStringsTesting:
     var = ListOfStrings()
 
 
-class TestingCustomList:
+class CustomListTesting:
     var_bool = CustomList(bool)
     var_str = CustomList(str)
     var_float = CustomList(float)
@@ -40,7 +40,7 @@ class TestingCustomList:
 
 @pytest.mark.parametrize('value', [[], ['fff'], ['4', 5], [True, False], [[[]]], ])
 def test_simple_list(value):
-    cls = TestingSimpleList()
+    cls = SimpleListTesting()
     cls.var = value
 
     assert cls.var == value
@@ -48,14 +48,14 @@ def test_simple_list(value):
 
 @pytest.mark.parametrize('value', [True, 5, 7.6, (), ])
 def test_simple_list_error(value):
-    cls = TestingSimpleList()
+    cls = SimpleListTesting()
     with pytest.raises(ValueError):
         cls.var = value
 
 
 def test_integer_list():
     temp_list = [5, 6, 7]
-    cls = TestingListOfIntegers()
+    cls = ListOfIntegersTesting()
     cls.var = temp_list
 
     assert cls.var == temp_list
@@ -63,14 +63,14 @@ def test_integer_list():
 
 @pytest.mark.parametrize('value', [['fff'], ['4', 5], [[[]]], [5.6]])
 def test_integer_list_error(value):
-    cls = TestingListOfIntegers()
+    cls = ListOfIntegersTesting()
     with pytest.raises(ValueError):
         cls.var = value
 
 
 def test_float_list():
     temp_list = [5.1, 6.3, 7.0]
-    cls = TestingListOfFloats()
+    cls = ListOfFloatsTesting()
     cls.var = temp_list
 
     assert cls.var == temp_list
@@ -78,14 +78,14 @@ def test_float_list():
 
 @pytest.mark.parametrize('value', [['fff'], ['4', 5], [[[]]], [5, 6, 7], [True, False]])
 def test_float_list_error(value):
-    cls = TestingListOfFloats()
+    cls = ListOfFloatsTesting()
     with pytest.raises(ValueError):
         cls.var = value
 
 
 def test_strings_list():
     temp_list = ['one', 'two', 'three']
-    cls = TestingListOfStrings()
+    cls = ListOfStringsTesting()
     cls.var = temp_list
 
     assert cls.var == temp_list
@@ -93,14 +93,14 @@ def test_strings_list():
 
 @pytest.mark.parametrize('value', [[5.4, 5.6], ['4', 5], [[[]]], [5, 6, 7], [True, False]])
 def test_strings_list_error(value):
-    cls = TestingListOfStrings()
+    cls = ListOfStringsTesting()
     with pytest.raises(ValueError):
         cls.var = value
 
 
 def test_numbers_list():
     temp_list = [5, 6.3, 7.6, 0]
-    cls = TestingListOfNumbers()
+    cls = ListOfNumbersTesting()
     cls.var = temp_list
 
     assert cls.var == temp_list
@@ -108,13 +108,13 @@ def test_numbers_list():
 
 @pytest.mark.parametrize('value', [[5.4, '3', 5.6], [[[]]], (5, 6)])
 def test_numbers_list_error(value):
-    cls = TestingListOfNumbers()
+    cls = ListOfNumbersTesting()
     with pytest.raises(ValueError):
         cls.var = value
 
 
 def test_custom_list():
-    cls = TestingCustomList(
+    cls = CustomListTesting(
         bl=[True], st=[''], fl=[3.4], li=[[5], [4]], it=[5]
     )
 
@@ -127,9 +127,9 @@ def test_custom_list():
 
 @pytest.mark.parametrize('type,value', [(int, [5.6]), (float, [6]), (bool, ['True']), (str, [5])])
 def test_custom_list_error(type, value):
-    class TestingCustomListLocal:
+    class CustomListLocalTesting:
         var = CustomList(type)
 
-    cls = TestingCustomListLocal()
+    cls = CustomListLocalTesting()
     with pytest.raises(ValueError):
         cls.var = value

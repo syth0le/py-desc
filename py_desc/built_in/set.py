@@ -1,5 +1,3 @@
-from typing import Union
-
 from py_desc.base import Base
 
 
@@ -57,7 +55,7 @@ class SetOfNumbers(Base):
     def __set__(self, instance, value):
         if not isinstance(value, set):
             raise ValueError('Must be set')
-        if not all([isinstance(x, Union[int, float]) for x in value]):
+        if not all([isinstance(x, (int, float)) for x in value]):
             raise ValueError('Values in set must be integers or float')
         setattr(instance, self.name, value)
 

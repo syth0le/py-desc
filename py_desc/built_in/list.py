@@ -1,5 +1,3 @@
-from typing import Union
-
 from py_desc.base import Base
 
 
@@ -57,7 +55,7 @@ class ListOfNumbers(Base):
     def __set__(self, instance, value):
         if not isinstance(value, list):
             raise ValueError('Must be list')
-        if not all([isinstance(x, Union[int, float]) for x in value]):
+        if not all([isinstance(x, (int, float)) for x in value]):
             raise ValueError('Values in list must be integers or float')
         setattr(instance, self.name, value)
 

@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='py_desc',
-    version='0.3.7',
+    version='0.4.0',
     packages=['py_desc/built_in'],
     url='https://github.com/syth0le/py_desc',
     license='Apache 2.0',

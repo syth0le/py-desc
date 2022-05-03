@@ -1,5 +1,3 @@
-from typing import Union
-
 from py_desc.base import Base
 
 
@@ -38,8 +36,9 @@ class NegativeInteger(Base):
 class CustomInteger(Base):
 
     def __init__(self, first_value: int = None, last_value: int = None) -> None:
-        if not (isinstance(first_value, Union[int, None]) and isinstance(last_value, Union[int, None])):
-            raise AttributeError('Cannot assign parameters for integer field')
+        if not (isinstance(first_value, int) and isinstance(last_value, int)):
+            if first_value is not None and last_value is not None:
+                raise AttributeError('Cannot assign parameters for integer field')
         if first_value is not None and last_value is not None:
             if first_value > last_value:
                 raise AttributeError('Cannot assign last_value smaller then first_value')

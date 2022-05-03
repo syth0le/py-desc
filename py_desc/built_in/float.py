@@ -38,8 +38,9 @@ class NegativeFloat(Base):
 class CustomFloat(Base):
 
     def __init__(self, first_value: Union[float, int] = None, last_value: Union[int, float] = None) -> None:
-        if not (isinstance(first_value, Union[float, int, None]) and isinstance(last_value, Union[float, int, None])):
-            raise AttributeError('Cannot assign parameters for float field')
+        if not (isinstance(first_value, (int, float)) and isinstance(last_value, (int, float))):
+            if first_value is not None and last_value is not None:
+                raise AttributeError('Cannot assign parameters for float field')
         if first_value is not None and last_value is not None:
             if first_value > last_value:
                 raise AttributeError('Cannot assign last_value smaller then first_value')

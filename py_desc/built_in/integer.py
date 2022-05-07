@@ -9,10 +9,10 @@ C = TypeVar('C')
 
 class PositiveInteger(Base):
 
-    def __get__(self, instance: 'PositiveInteger', owner: C) -> int:
+    def __get__(self, instance: 'PositiveInteger', owner: C) -> T:
         return getattr(instance, self.name)
 
-    def __set__(self, instance: 'PositiveInteger', value: int) -> None:
+    def __set__(self, instance: 'PositiveInteger', value: T) -> None:
         if not isinstance(value, int):
             raise ValueError('Must be integer')
         if value < 0:
@@ -25,10 +25,10 @@ class PositiveInteger(Base):
 
 class NegativeInteger(Base):
 
-    def __get__(self, instance: 'NegativeInteger', owner: C) -> int:
+    def __get__(self, instance: 'NegativeInteger', owner: C) -> T:
         return getattr(instance, self.name)
 
-    def __set__(self, instance: 'NegativeInteger', value: int) -> None:
+    def __set__(self, instance: 'NegativeInteger', value: T) -> None:
         if not isinstance(value, int):
             raise ValueError('Must be integer')
         if value >= 0:
@@ -52,10 +52,10 @@ class CustomInteger(Base, Generic[T]):
         self.left: Optional[T] = left
         self.right: Optional[T] = right
 
-    def __get__(self, instance: 'CustomInteger', owner: C) -> int:
+    def __get__(self, instance: 'CustomInteger', owner: C) -> T:
         return getattr(instance, self.name)
 
-    def __set__(self, instance: 'CustomInteger', value: int) -> None:
+    def __set__(self, instance: 'CustomInteger', value: T) -> None:
         if not isinstance(value, int):
             raise ValueError('Must be integer')
 

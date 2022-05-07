@@ -3,15 +3,16 @@ from typing import Generic, Optional, TypeVar
 from py_desc.base import Base
 
 T = TypeVar('T', int, float)
+V = TypeVar('V', bound=float)
 C = TypeVar('C')
 
 
 class PositiveFloat(Base):
 
-    def __get__(self, instance: 'PositiveFloat', owner: C) -> float:
+    def __get__(self, instance: 'PositiveFloat', owner: C) -> V:
         return getattr(instance, self.name)
 
-    def __set__(self, instance: 'PositiveFloat', value: float) -> None:
+    def __set__(self, instance: 'PositiveFloat', value: V) -> None:
         if not isinstance(value, float):
             raise ValueError('Must be float')
         if value < 0:
@@ -24,10 +25,10 @@ class PositiveFloat(Base):
 
 class NegativeFloat(Base):
 
-    def __get__(self, instance: 'NegativeFloat', owner: C) -> float:
+    def __get__(self, instance: 'NegativeFloat', owner: C) -> V:
         return getattr(instance, self.name)
 
-    def __set__(self, instance: 'NegativeFloat', value: float) -> None:
+    def __set__(self, instance: 'NegativeFloat', value: V) -> None:
         if not isinstance(value, float):
             raise ValueError('Must be float')
         if value >= 0:
@@ -51,10 +52,10 @@ class CustomFloat(Base, Generic[T]):
         self.left: Optional[T] = left
         self.right: Optional[T] = right
 
-    def __get__(self, instance: 'CustomFloat', owner: C) -> float:
+    def __get__(self, instance: 'CustomFloat', owner: C) -> V:
         return getattr(instance, self.name)
 
-    def __set__(self, instance: 'CustomFloat', value: float) -> None:
+    def __set__(self, instance: 'CustomFloat', value: V) -> None:
         if not isinstance(value, float):
             raise ValueError('Must be float')
 

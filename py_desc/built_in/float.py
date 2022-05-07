@@ -1,74 +1,77 @@
-from typing import Union
+from typing import Generic, Optional, TypeVar
 
 from py_desc.base import Base
+
+T = TypeVar('T', int, float)
+C = TypeVar('C')
 
 
 class PositiveFloat(Base):
 
-    def __get__(self, instance, owner):
+    def __get__(self, instance: 'PositiveFloat', owner: C) -> float:
         return getattr(instance, self.name)
 
-    def __set__(self, instance, value):
+    def __set__(self, instance: 'PositiveFloat', value: float) -> None:
         if not isinstance(value, float):
             raise ValueError('Must be float')
         if value < 0:
             raise ValueError('Cannot be negative')
         setattr(instance, self.name, value)
 
-    def __set_name__(self, owner, name):
+    def __set_name__(self, owner: C, name: str) -> None:
         self.name = f'_{name.lower()}'
 
 
 class NegativeFloat(Base):
 
-    def __get__(self, instance, owner):
+    def __get__(self, instance: 'NegativeFloat', owner: C) -> float:
         return getattr(instance, self.name)
 
-    def __set__(self, instance, value):
+    def __set__(self, instance: 'NegativeFloat', value: float) -> None:
         if not isinstance(value, float):
             raise ValueError('Must be float')
         if value >= 0:
             raise ValueError('Cannot be positive')
         setattr(instance, self.name, value)
 
-    def __set_name__(self, owner, name):
+    def __set_name__(self, owner: C, name: str) -> None:
         self.name = f'_{name.lower()}'
 
 
-class CustomFloat(Base):
+class CustomFloat(Base, Generic[T]):
 
-    def __init__(self, first_value: Union[float, int] = None, last_value: Union[int, float] = None) -> None:
-        if not (isinstance(first_value, (int, float)) and isinstance(last_value, (int, float))):
-            if first_value is not None and last_value is not None:
+    def __init__(self, left: Optional[T] = None, right: Optional[T] = None) -> None:
+        if not (isinstance(left, (int, float)) and isinstance(right, (int, float))):
+            if left is not None and right is not None:
                 raise AttributeError('Cannot assign parameters for float field')
-        if first_value is not None and last_value is not None:
-            if first_value > last_value:
+        if left is not None and right is not None:
+            if left > right:
                 raise AttributeError('Cannot assign last_value smaller then first_value')
 
-        self.first_value = first_value
-        self.last_value = last_value
+        self.left: Optional[T] = left
+        self.right: Optional[T] = right
 
-    def __get__(self, instance, owner):
+    def __get__(self, instance: 'CustomFloat', owner: C) -> float:
         return getattr(instance, self.name)
 
-    def __set__(self, instance, value):
+    def __set__(self, instance: 'CustomFloat', value: float) -> None:
         if not isinstance(value, float):
             raise ValueError('Must be float')
 
-        if self.first_value is None and self.last_value is None:
+        if self.left is None and self.right is None:
             setattr(instance, self.name, value)
-        elif self.first_value is None:
-            if value >= self.last_value:
-                raise ValueError(f'Cannot be equal or bigger than {self.last_value}')
-        elif self.last_value is None:
-            if value < self.first_value:
-                raise ValueError(f'Cannot be smaller than {self.last_value}')
+        elif self.left is None and self.right is not None:
+            if value >= self.right:
+                raise ValueError(f'Cannot be equal or bigger than {self.right}')
+        elif self.right is None and self.left is not None:
+            if value < self.left:
+                raise ValueError(f'Cannot be smaller than {self.right}')
         else:
-            if self.first_value <= value < self.last_value:
+            if (self.right is not None and self.left is not None) and self.left <= value < self.right:
                 setattr(instance, self.name, value)
             else:
-                raise ValueError(f'Cannot be not in range [{self.first_value}:{self.last_value}]')
+                raise ValueError(f'Cannot be not in range [{self.left}:{self.right}]')
         setattr(instance, self.name, value)
 
-    def __set_name__(self, owner, name):
+    def __set_name__(self, owner: C, name: str) -> None:
         self.name = f'_{name.lower()}'

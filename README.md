@@ -13,7 +13,7 @@ Usage
 
 ### Simple built-in types
 
-``` {.python}
+``` python
 >>> from py_desc.built_in import *
 >>>
 >>> class YourClass:
@@ -36,7 +36,7 @@ ValueError: Cannot be negative
 
 ### Custom Types
 
-``` {.python}
+``` python
 >>> from py_desc.built_in import *
 >>>
 >>> class YourCustomClass:
@@ -54,7 +54,8 @@ ValueError: Cannot be equal or bigger than 10
 ValueError: Cannot be not in range [1:10]
 ```
 
-``` {.python}
+``` python
+>>> from dataclasses import dataclass
 >>> from py_desc.built_in import *
 >>>
 >>> @dataclass

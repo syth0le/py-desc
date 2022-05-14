@@ -48,4 +48,4 @@ jobs:
       if: ${{ always() }}
     - name: Test with Mypy
       run: |
-          mypy pydesc
+          mypy py_desc

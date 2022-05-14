@@ -28,8 +28,10 @@ Usage
 >>>
 >>> a.bool_var = 'string'
 ValueError: Must be boolean
+>>> 
 >>> a.string_var = 5
 ValueError: Must be string
+>>> 
 >>> a.positive_int_var = -10
 ValueError: Cannot be negative
 ```
@@ -47,8 +49,10 @@ ValueError: Cannot be negative
 >>> a = YourClass()
 >>> a.first = 2
 ValueError: Cannot be smaller than 5
+>>> 
 >>> a.second = 50
 ValueError: Cannot be equal or bigger than 10
+>>> 
 >>> a.third = 6  # OK. this value in range 1-10
 >>> a.third = 12
 ValueError: Cannot be not in range [1:10]
@@ -72,9 +76,11 @@ ValueError: Cannot be not in range [1:10]
 >>> a.custom_list_int = [5, 6, 3, 6]  # OK. The same type was given
 >>> a.custom_list_int = [5.6, 2.1, 'str']
 ValueError: Values in list must be int
+>>> 
 >>> a.custom_list_data = [ExampleData(name='Carl', age=23), ExampleData(name='Daniel', age=21)]
 >>> print(a.custom_list_data)
 [ExampleData(name='Carl', age=23), ExampleData(name='Daniel', age=21)]
+>>> 
 >>> a.custom_list_data = (ExampleData(name='Carl', age=23), ExampleData(name='Daniel', age=21))
 ValueError: Must be list
 ```

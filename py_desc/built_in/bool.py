@@ -6,6 +6,20 @@ T = TypeVar('T', bound=bool)
 C = TypeVar('C')
 
 
+class Boolean(Base):
+
+    def __get__(self, instance: 'Boolean', owner: C) -> T:
+        return getattr(instance, self.name)
+
+    def __set__(self, instance: 'Boolean', value: T) -> None:
+        if not isinstance(value, bool):
+            raise ValueError('Must be boolean')
+        setattr(instance, self.name, value)
+
+    def __set_name__(self, owner: C, name: str) -> None:
+        self.name = f'_{name.lower()}'
+
+
 class TrueBoolean(Base):
 
     def __get__(self, instance: 'TrueBoolean', owner: C) -> T:

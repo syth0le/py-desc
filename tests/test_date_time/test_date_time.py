@@ -1,6 +1,8 @@
+import datetime
+
 import pytest
 
-from py_desc.date_time.date_time import *
+from py_desc.date_time import Date, Time, Datetime, Timedelta, TzInfo, Timezone
 
 
 class TestingDate:

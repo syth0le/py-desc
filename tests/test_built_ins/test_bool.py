@@ -1,6 +1,10 @@
 import pytest
 
-from py_desc.built_in.bool import TrueBoolean, FalseBoolean
+from py_desc.built_in import Boolean, TrueBoolean, FalseBoolean
+
+
+class TestingBoolean:
+    var = Boolean()
 
 
 class TestingTrueBoolean:
@@ -9,6 +13,20 @@ class TestingTrueBoolean:
 
 class TestingFalseBoolean:
     var = FalseBoolean()
+
+
+@pytest.mark.parametrize('value', [True, False])
+def test_boolean(value):
+    cls = TestingBoolean()
+    cls.var = value
+
+    assert cls.var == value
+
+
+def test_boolean_error():
+    cls = TestingBoolean()
+    with pytest.raises(ValueError):
+        cls.var = ''
 
 
 def test_true_boolean():

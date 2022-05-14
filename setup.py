@@ -1,10 +1,14 @@
 from setuptools import setup
 
+with open('README.rst', 'r') as f:
+    long_description = f.read()
+
 setup(
     name='py_desc',
-    version='0.5.1',
+    version='0.5.2',
     packages=['py_desc/built_in'],
     url='https://github.com/syth0le/py_desc',
+    long_description=long_description,
     license='Apache 2.0',
     author='Cherednichenko Daniil',
     author_email='syth0le565@gmail.com',

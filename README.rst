@@ -1,10 +1,8 @@
 py-desc
-=========
-
-|Download from PyPI| |Tests|
+=======
 
 Installation
------
+------------
 ``pip install py-desc``
 
 Usage
